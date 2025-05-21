@@ -16,3 +16,31 @@ La qualité et le format des données d'entrée sont cruciaux pour la performanc
 ## Structure des Répertoires
 
 Le code s'attend typiquement à la structure suivante (configurable via des variables dans le notebook) :
+
+&lt;DATA_DIR>/
+├── &lt;IMAGE_DIR_NAME>/       # Par défaut, 'images' ou 'train_images'
+│   ├── image_001.png
+│   ├── image_002.png
+│   └── ...
+└── &lt;MASK_DIR_NAME>/        # Par défaut, 'masks' ou 'train_masks'
+├── image_001_mask.png  # Assurez-vous que les noms correspondent
+├── image_002_mask.png
+└── ...
+
+[**Adaptez ceci à la structure exacte attendue par votre `CustomDataset`.**]
+
+## Prétraitement
+
+Les étapes de prétraitement suivantes sont appliquées (principalement dans la classe `CustomDataset` et/ou avant l'entraînement) :
+1.  **Lecture des Images et Masques :** Utilisation de `cv2.imread()`. Les images sont lues en niveaux de gris.
+2.  **Redimensionnement :** Les images et les masques sont redimensionnés à la taille d'entrée définie pour le réseau (par exemple, `IMAGE_HEIGHT`, `IMAGE_WIDTH` comme 128x128).
+3.  **Normalisation :** Les valeurs des pixels des images sont normalisées (par exemple, divisées par 255.0 pour être dans la plage [0, 1]). Les masques sont également normalisés si nécessaire (par exemple, valeurs de pixel à 0.0 ou 1.0).
+4.  [**Ajoutez d'autres étapes spécifiques si elles existent, par exemple, filtrage, etc.**]
+
+## Augmentation des Données
+
+Pour améliorer la généralisation du modèle, des techniques d'augmentation de données sont appliquées à la volée pendant l'entraînement en utilisant la bibliothèque `albumentations`. Les transformations configurées incluent :
+* [**Listez les transformations d'Albumentations utilisées, e.g., `HorizontalFlip`, `VerticalFlip`, `Rotate`, `RandomBrightnessContrast`. Référez-vous à la section `transform` dans votre `CustomDataset`.**]
+* Les transformations sont appliquées de manière aléatoire à chaque image/masque du lot d'entraînement.
+* Finalement, les images et masques sont convertis en tenseurs PyTorch via `ToTensorV2()`.
+
