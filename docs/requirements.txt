@@ -1,0 +1,14 @@
+sphinx
+sphinx_rtd_theme
+myst-parser # Très utile si vous écrivez votre doc en Markdown
+# ------------- Dépendances de votre projet (pour que Sphinx puisse les voir) -------------
+# Même si certaines sont "mockées" via conf.py, il est bon de les lister ici
+# pour que pip essaie de les résoudre, même si l'installation complète est évitée.
+torch
+torchvision
+opencv-python
+numpy
+scikit-learn
+albumentations
+matplotlib
+jupyter # Si vous référencez des notebooks ou utilisez des extensions Jupyter
