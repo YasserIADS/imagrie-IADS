@@ -1,0 +1,29 @@
+# .readthedocs.yaml
+version: 2
+
+# Optionnel : Spécifiez la version de Python que vous utilisez
+python:
+  version: "3.9"  # Ou "3.8", "3.10", "3.11" etc. Choisissez celle de votre projet
+  install:
+    - requirements: docs/requirements.txt
+    # Si votre projet lui-même est un package installable (avec setup.py ou pyproject.toml)
+    # vous pouvez l'installer aussi :
+    # - method: pip
+    #   path: .
+
+# Configuration pour Sphinx
+sphinx:
+  configuration: docs/conf.py
+  # Optionnel: Si vous voulez que les builds échouent sur les avertissements Sphinx
+  # fail_on_warning: true
+
+# Optionnel : Spécifiez le système d'exploitation pour la construction
+build:
+  os: "ubuntu-22.04"
+  tools:
+    python: "3.9" # Assurez-vous que cela correspond à la version python ci-dessus
+
+# Optionnel : si vous utilisez des submodules Git
+# submodules:
+#  include: all
+#  recursive: true
